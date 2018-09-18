@@ -3,11 +3,9 @@ pragma solidity ^0.4.24;
 import "./PaymentRule.sol";
 import './PostingNews.sol';
 import '../TraceableToken.sol';
-import "../zeppelin/contracts/math/SafeMath.sol";
 
 
 contract Payout is PaymentRule, TraceableToken {
-  using SafeMath for uint256;
   PostingNews public posting;
 
   event NewPosting(
@@ -35,9 +33,9 @@ contract Payout is PaymentRule, TraceableToken {
   }
 
   function payForOutstandingArticle() internal {
-    uint256 tip = posting.getTip();
-    if(tip > 0)
-      super.transfer(posting.getAuthor(), tip);
+    uint256 bonus = posting.getTip();
+    if(bonus > 0)
+      super.transfer(posting.getAuthor(), bonus);
   }
 
   function paymentAll() internal {
